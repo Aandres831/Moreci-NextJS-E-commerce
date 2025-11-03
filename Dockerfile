@@ -1,20 +1,26 @@
-# Usa una imagen base con Node
-FROM node:18-alpine
+# Dockerfile (definitivo: Debian slim para compatibilidad con lightningcss)
+FROM node:20-bullseye-slim
 
-# Crea el directorio de la app
 WORKDIR /app
 
-# Copia los archivos de configuración
+# Evitar prompts y acelerar un poco
+ENV NODE_ENV=development
+ENV NPM_CONFIG_UPDATE_NOTIFIER=false
+ENV NPM_CONFIG_LOGLEVEL=warn
+
+# Copiar package files primero para cachear instalación
 COPY package*.json ./
 
-# Instala dependencias
-RUN npm install
+# Instalar dependencias dentro de la imagen (no dependen del host)
+RUN npm ci
 
-# Copia el resto del proyecto
+# Copiar el resto del código
 COPY . .
 
-# Expone el puerto 3000
+# Asegurar que lightningcss esté reconstruido para el sistema dentro de la imagen
+RUN npm rebuild lightningcss || true
+
 EXPOSE 3000
 
-# Comando para iniciar la app
+# Comando por defecto (modo dev). Si prefieres producción cambialo luego.
 CMD ["npm", "run", "dev"]
