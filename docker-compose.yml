@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  nextapp:
+    build: .
+    container_name: next-ecommerce-app
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.local
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run dev
