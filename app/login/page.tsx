@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Button from "@/components/Button";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -30,32 +31,40 @@ export default function LoginPage() {
     };
 
     return (
-        <div style={{ maxWidth: 400, margin: "50px auto" }}>
-        <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
+        <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-600 p-6">
+        <div className="w-full max-w-md bg-emerald-700 bg-opacity-30 backdrop-blur-md rounded-xl shadow-lg p-8 text-white">
+            <h2 className="text-3xl font-extrabold mb-6 text-center drop-shadow-lg">Login</h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
             <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            onChange={handleChange}
-            value={form.email}
-            required
-            style={{ display: "block", width: "100%", marginBottom: "10px" }}
+                type="email"
+                name="email"
+                placeholder="Email"
+                onChange={handleChange}
+                value={form.email}
+                required
+                className="w-full px-4 py-3 rounded-lg bg-emerald-800 placeholder-green-200 text-white focus:outline-none focus:ring-2 focus:ring-green-400"
             />
             <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            onChange={handleChange}
-            value={form.password}
-            required
-            style={{ display: "block", width: "100%", marginBottom: "10px" }}
+                type="password"
+                name="password"
+                placeholder="Password"
+                onChange={handleChange}
+                value={form.password}
+                required
+                className="w-full px-4 py-3 rounded-lg bg-emerald-800 placeholder-green-200 text-white focus:outline-none focus:ring-2 focus:ring-green-400"
             />
-            <button type="submit" style={{ width: "100%" }}>
-            Login
+            <button
+                type="submit"
+                className="w-full py-3 bg-green-400 hover:bg-green-300 text-emerald-950 font-bold rounded-full transition-transform transform hover:scale-105 shadow-lg"
+            >
+                Login
             </button>
-        </form>
-        {error && <p>{error}</p>}
+            </form>
+            {error && <p className="mt-4 text-red-400 text-center">{error}</p>}
+            <div className="mt-6">
+                <Button label="Back to Home" href="/" />
+            </div>
         </div>
+        </main>
     );
 }
