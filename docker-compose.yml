@@ -1,4 +1,5 @@
-# docker-compose.yml (Next + Mongo)
+version: "3.9"
+
 services:
   nextapp:
     container_name: next-ecommerce-app
@@ -10,10 +11,14 @@ services:
       - NEXTAUTH_SECRET=supersecretkey
       - NEXTAUTH_URL=http://localhost:3000
       - MONGODB_URI=mongodb+srv://andresseverino646:aseverinoi123.A@clusterandress.vfyb0cg.mongodb.net/next-ecommerce
+      - WATCHPACK_POLLING=true
+    volumes:
+      - .:/app              
+      - /app/node_modules   
     depends_on:
       - mongo
-    # NO bind mount .:/app aquí para evitar sobreescribir node_modules instalados en la imagen
-    # Si necesitas live-reload en dev, ver sección alternativa abajo.
+    command: npm run dev    
+
   mongo:
     image: mongo:7
     container_name: mongo
@@ -24,5 +29,6 @@ services:
 
 volumes:
   mongo_data:
+
 
 
