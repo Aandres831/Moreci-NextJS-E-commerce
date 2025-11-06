@@ -89,10 +89,10 @@ export default function SendEmailPage() {
             </form>
 
             {status === 'success' && (
-            <p className="text-green-600 text-center mt-4">✅ Email sent successfully!</p>
+            <p className="text-green-600 text-center mt-4"> Email sent successfully!</p>
             )}
             {status === 'error' && (
-            <p className="text-red-600 text-center mt-4">❌ Error sending email. Check console.</p>
+            <p className="text-red-600 text-center mt-4"> Error sending email. Check console.</p>
             )}
         </div>
         </div>
