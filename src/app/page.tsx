@@ -1,5 +1,11 @@
 'use client'
+import Buttonsa from '@/components/Buttonsa'
 import Link from 'next/link'
+
+const handleClick = () =>{
+  console.log("se hace click papu");
+  alert("se hace click papu");
+}
 
 export default function Home() {
   return (
@@ -28,6 +34,9 @@ export default function Home() {
             Sign Up
           </Link>
         </div>
+      </div>
+      <div>
+        <Buttonsa onClick={handleClick} label='click'></Buttonsa>
       </div>
 
       <footer className="absolute bottom-6 text-green-200 text-sm">

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { transporter, mailOptions } from '@/lib/mailer';
+import { transporter, mailOptions } from '@/src/lib/mailer';
 
 export async function POST(req: Request) {
     try {
