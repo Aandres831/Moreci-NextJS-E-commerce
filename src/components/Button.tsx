@@ -4,9 +4,10 @@ import { useRouter } from "next/navigation";
 interface ButtonProps {
     label: string;
     href?: string;
+    className?: string;
 }
 
-export default function Button({ label, href }: ButtonProps) {
+export default function Button({ label, href, className }: ButtonProps) {
     const router = useRouter();
 
     return (
