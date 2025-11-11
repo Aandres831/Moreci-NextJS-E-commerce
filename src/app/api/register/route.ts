@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import bcrypt from 'bcrypt'
-import User from '@/src/models/User'
-import connectDB from '@/src/lib/mongodb'
+import User from '@/models/User'
+import connectDB from '@/lib/mongodb'
 import nodemailer from 'nodemailer'
 
 export async function POST(req: Request) {
