@@ -1,5 +1,11 @@
 'use client'
+import Buttonsa from '@/components/Buttonsa'
 import Link from 'next/link'
+
+const handleClick = () =>{
+  console.log("se hace click papu");
+  alert("se hace click papu");
+}
 
 export default function Home() {
   return (
