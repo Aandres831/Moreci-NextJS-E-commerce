@@ -35,9 +35,6 @@ export default function Home() {
           </Link>
         </div>
       </div>
-      <div>
-        <Buttonsa onClick={handleClick} label='click'></Buttonsa>
-      </div>
 
       <footer className="absolute bottom-6 text-green-200 text-sm">
         © 2025 Moreci Shop · Medellín 💚

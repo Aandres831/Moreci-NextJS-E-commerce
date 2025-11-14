@@ -12,13 +12,19 @@
     "test:cov": "jest --coverage"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.5",
+    "@mui/material": "^7.3.5",
+    "axios": "^1.13.2",
     "bcrypt": "^6.0.0",
     "lucide-react": "^0.552.0",
     "mongoose": "^8.19.2",
     "next-auth": "^4.24.13",
     "nodemailer": "^7.0.10",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "react-is": "^18.3.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
