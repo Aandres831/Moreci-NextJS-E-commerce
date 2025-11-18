@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { productService } from "@/services/product";
 import ProductCard from "@/components/Card";
+import Button from "@/components/Button";
 
 export default function ProductsPage() {
     const [products, setProducts] = useState<any[]>([]);
@@ -30,6 +31,7 @@ export default function ProductsPage() {
 
     return (
         <div className="p-6">
+            <Button label="Back to Home" href="/" />
             <h1 className="text-2xl font-bold mb-4">Products</h1>
 
             {products.length === 0 ? (

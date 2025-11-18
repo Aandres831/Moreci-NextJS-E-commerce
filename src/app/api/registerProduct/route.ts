@@ -37,7 +37,7 @@ const uploadToCloudinary = async (file: File) => {
     return data.secure_url;
 };
 
-// 📌 POST — Crear producto
+//  POST — Crear producto
 export async function POST(req: Request) {
     try {
         await connectDB();
@@ -82,7 +82,7 @@ export async function POST(req: Request) {
     }
 }
 
-// 📌 GET — Listar productos
+//  GET — Listar productos
 export async function GET() {
     try {
         await connectDB();
