@@ -3,13 +3,13 @@
 import React from "react";
 
 export default function ProductCard({ product }: { product: any }) {
+    const imageUrl = product?.images?.[0] || "/placeholder.png";
+
     return (
-        <div
-            className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition border"
-        >
+        <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition border">
             <div className="w-full aspect-square bg-gray-100">
                 <img
-                    src={product.image || "/placeholder.png"}
+                    src={imageUrl}
                     alt={product.name}
                     className="w-full h-full object-cover"
                 />
@@ -26,7 +26,7 @@ export default function ProductCard({ product }: { product: any }) {
 
                 <div className="flex justify-between mt-3">
                     <span className="text-xs text-gray-500">
-                        Stock: {product.stock}
+                        Stock: {product.stock || product.quantity}
                     </span>
 
                     <span className="text-xs px-2 py-1 bg-gray-200 rounded-full">

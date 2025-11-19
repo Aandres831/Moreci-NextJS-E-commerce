@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { productService } from "@/services/product";
 import ProductCard from "@/components/Card";
 import Button from "@/components/Button";
+import ProductCardSkeleton from "@/components/ProductCardSkeleton";
 
 export default function ProductsPage() {
     const [products, setProducts] = useState<any[]>([]);
@@ -15,7 +16,7 @@ export default function ProductsPage() {
         const fetchProducts = async () => {
             try {
                 const data = await productService.getProducts();
-                setProducts(data.products || []);
+                setProducts(Array.isArray(data) ? data : data.products || []);
             } catch (err) {
                 setError("Error loading products");
             } finally {
@@ -26,7 +27,16 @@ export default function ProductsPage() {
         fetchProducts();
     }, []);
 
-    if (loading) return <p className="text-center mt-10">Loading products...</p>;
+    if (loading) return (
+        <div className="p-6">
+            <h1 className="text-2xl font-bold mb-4">Products</h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {[...Array(6)].map((_, i) => (
+                    <ProductCardSkeleton key={i} />
+                ))}
+            </div>
+        </div>
+    );;
     if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
 
     return (

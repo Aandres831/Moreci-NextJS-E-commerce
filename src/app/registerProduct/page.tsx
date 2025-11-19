@@ -68,39 +68,35 @@ export default function RegisterProduct() {
         const formData = new FormData();
         formData.append("file", imageFile);
 
-        const uploadRes = await fetch("/api/uploadImage", {
-          method: "POST",
-          body: formData,
+        const uploadRes = await axios.post("/api/uploadImage", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
         });
 
-        if (!uploadRes.ok) throw new Error("Image upload failed");
-
-        const uploadData = await uploadRes.json();
-        uploadedImageUrl = uploadData.url; // URL FINAL
+        uploadedImageUrl = uploadRes.data.url;
       }
 
-      // 2️⃣ Preparar datos del producto
+      // 2️⃣ Crear datos del producto
       const productData = {
         ...form,
         tags: form.tags ? form.tags.split(",").map((t) => t.trim()) : [],
+        image: uploadedImageUrl,
         images: uploadedImageUrl ? [uploadedImageUrl] : [],
-        image: uploadedImageUrl, // si tu schema usa "image" en vez de "images"
+        stock: form.quantity,
         condition: form.condition.toLowerCase(),
-        stock: form.quantity, // tu backend usa stock
       };
 
-      // 3️⃣ Enviar producto
+      // 3️⃣ Guardar en DB con Axios
       await axios.post("/api/registerProduct", productData);
 
       setSuccessMsg("Product created successfully!");
 
-      // Reset
       setTimeout(() => router.push("/"), 1500);
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error:", error);
       setErrorMsg("Error creating product. Check your data.");
     }
   };
+
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-green-900 via-green-800 to-green-700 text-white px-4">
