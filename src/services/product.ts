@@ -1,25 +1,17 @@
-import { NextResponse } from 'next/server';
-import Product from '@/models/Product';
-import connectDB from '@/lib/mongodb';
+const BASE_URL = "/api/registerProduct";
 
-export async function POST(req: Request) {
-    try {
-        const body = await req.json();
-
-        await connectDB();
-
-        const newProduct = await Product.create(body);
-
-        return NextResponse.json({
-            message: 'Product created successfully',
-            product: newProduct,
+export const productService = {
+    getProducts: async () => {
+        const res = await fetch(BASE_URL, { method: "GET" });
+        if (!res.ok) throw new Error("Error fetching products");
+        return res.json();
+    },
+    createProduct: async ({data}:any) => {
+        const res = await fetch(BASE_URL, {
+            method: "POST",
+            body: data, 
         });
-
-    } catch (error) {
-        console.error(error);
-        return NextResponse.json(
-            { error: 'Error creating product' },
-            { status: 500 }
-        );
+        if (!res.ok) throw new Error("Error creating product");
+        return res.json();
     }
-}
+};
