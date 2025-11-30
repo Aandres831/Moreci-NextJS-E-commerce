@@ -35,10 +35,6 @@ export default function Home() {
           </Link>
         </div>
       </div>
-
-      <footer className="absolute bottom-6 text-green-200 text-sm">
-        © 2025 Moreci Shop · Medellín 💚
-      </footer>
     </main>
   )
 }

@@ -1,10 +1,11 @@
 import mongoose, { Schema, models } from "mongoose";
 
-// Defines the structure of a user document
 const UserSchema = new Schema({
-    name: { type: String, required: true },
+    name: { type: String },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    password: { type: String }, 
+    image: { type: String, default: null },
+    provider: { type: String, default: "credentials" }, 
 });
 
 const User = models.User || mongoose.model("User", UserSchema);
