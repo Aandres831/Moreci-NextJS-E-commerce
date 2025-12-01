@@ -78,8 +78,10 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("PayPal endpoint error:", error);
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
     return Response.json(
-      { error: "Error creating order: " + error.message },
+      { error: "Error creating order: " + errorMessage },
       { status: 500 }
     );
   }
