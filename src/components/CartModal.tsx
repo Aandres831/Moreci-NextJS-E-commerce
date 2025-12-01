@@ -1,5 +1,7 @@
 "use client";
+import { useState } from "react";
 import { useCart } from "@/context/CartContext";
+import Checkout from "./Checkout";
 
 interface CartModalProps {
     isOpen: boolean;
@@ -17,10 +19,10 @@ interface CartItem {
 
 export default function CartModal({ isOpen, onClose }: CartModalProps) {
     const { items, removeItem, updateQuantity, getCartTotal, clearCart } = useCart();
+    const [isCheckout, setIsCheckout] = useState(false);
 
     const handleCheckout = () => {
-        console.log("Proceder al checkout", items);
-        onClose();
+        setIsCheckout(true);
     };
 
     if (!isOpen) return null;
@@ -32,13 +34,18 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
                 {/* Header */}
                 <div className="p-6 border-b border-green-400/40">
                     <h2 className="text-2xl font-bold text-green-200 text-center">
-                        Tu Carrito de Compras
+                        {isCheckout ? "Finalizar Compra" : "Tu Carrito de Compras"}
                     </h2>
                 </div>
 
                 {/* Body */}
                 <div className="p-6 overflow-y-auto max-h-96">
-                    {items.length === 0 ? (
+                    {isCheckout ? (
+                        <Checkout onClose={() => {
+                            setIsCheckout(false);
+                            onClose();
+                        }} />
+                    ) : items.length === 0 ? (
                         <p className="text-center text-green-200 py-8">
                             Tu carrito está vacío
                         </p>
@@ -95,10 +102,10 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
                     )}
                 </div>
 
-                {/* Footer */}
-                {items.length > 0 && (
+                {/* Footer - Solo mostrar si NO está en checkout y hay items */}
+                {!isCheckout && items.length > 0 && (
                     <div className="p-6 border-t border-green-400/40 bg-white/5">
-                        <div className="flex justify-between items-center mb-4">
+                        <div className="flex justify-between items-center">
                             <div>
                                 <p className="text-lg font-bold text-green-200">
                                     Total: ${getCartTotal().toFixed(2)}
