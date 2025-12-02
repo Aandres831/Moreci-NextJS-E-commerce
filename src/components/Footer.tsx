@@ -16,6 +16,12 @@ export default function Footer() {
                     <Link href="/contact" className="hover:text-white transition">
                         Contact
                     </Link>
+                    <Link
+                        href="/dashboard/products"
+                        className="hover:text-white transition"
+                    >
+                        Admin Dashboard
+                    </Link>
                 </div>
             </div>
         </footer>

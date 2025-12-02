@@ -1,44 +1,48 @@
 "use client";
-import { useRouter } from "next/navigation";
 
-interface ButtonProps {
+import Link from "next/link";
+
+export interface ButtonProps {
     label: string;
     href?: string;
-    className?: string;
+    onClick?: () => void;
     disabled?: boolean;
+    className?: string;
+    type?: "button" | "submit" | "reset";
 }
 
-export default function Button({ label, href, className, disabled }: ButtonProps) {
-    const router = useRouter();
+export default function Button({
+    label,
+    href,
+    onClick,
+    disabled = false,
+    className = "",
+    type = "button",
+}: ButtonProps) {
+    const baseClass = `
+        px-4 py-2 rounded-lg font-medium transition
+        ${disabled ? "opacity-50 cursor-not-allowed" : ""}
+        ${className}
+    `;
 
+    // Si el botón es un link
+    if (href) {
+        return (
+            <Link href={href} className={baseClass}>
+                {label}
+            </Link>
+        );
+    }
+
+    // Si es botón normal
     return (
         <button
-        onClick={() => href && !disabled && router.push(href)}
-        disabled={disabled}
-        style={{
-            backgroundColor: disabled ? "#9ca3af" : "#22c55e",
-            color: "white",
-            padding: "10px 20px",
-            border: "none",
-            borderRadius: "8px",
-            cursor: disabled ? "not-allowed" : "pointer",
-            fontWeight: "600",
-            transition: "0.2s",
-            opacity: disabled ? 0.6 : 1,
-        }}
-        onMouseOver={(e) => {
-            if (!disabled) {
-                (e.target as HTMLButtonElement).style.backgroundColor = "#16a34a";
-            }
-        }}
-        onMouseOut={(e) => {
-            if (!disabled) {
-                (e.target as HTMLButtonElement).style.backgroundColor = "#22c55e";
-            }
-        }}
-        className={className}
+            type={type}
+            onClick={!disabled ? onClick : undefined}
+            disabled={disabled}
+            className={baseClass}
         >
-        {label}
+            {label}
         </button>
     );
 }

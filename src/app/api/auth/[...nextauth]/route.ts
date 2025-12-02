@@ -72,6 +72,21 @@ const handler = NextAuth({
         }
         return session;
         },
+
+        async redirect({ url, baseUrl }) {
+            if (url.startsWith(baseUrl)) return url;
+            
+            if (url.startsWith("/api/auth")) {
+                return `${baseUrl}/dashboard/products`;
+            }
+            
+            return baseUrl;
+        },
+    },
+
+    pages: {
+        signIn: '/login',
+        error: '/login',
     },
 
     session: {
