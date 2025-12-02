@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 interface CustomSelectProps {
-    label: string;
+    label?: string;
     name: string;
     value: string;
     onChange: (e: any) => void;

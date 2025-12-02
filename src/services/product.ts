@@ -1,23 +1,44 @@
-const BASE_URL = "/api";
+const API_URL = "/api/products";
 
 export const productService = {
-    getProducts: async (page = 1, limit = 9) => {
-        const res = await fetch(`${BASE_URL}/products?page=${page}&limit=${limit}`, { 
-            method: "GET" 
-        });
-        if (!res.ok) throw new Error("Error fetching products");
-        return res.json();
+
+    // Obtener todos los productos (con paginación si la usas)
+    async getProducts(page = 1, limit = 10) {
+        const res = await fetch(`${API_URL}?page=${page}&limit=${limit}`);
+        return await res.json();
     },
-    
-    createProduct: async (data: any) => {
-        const res = await fetch(`${BASE_URL}/registerProduct`, {
+
+    // Crear un producto
+    async createProduct(data: any) {
+        const res = await fetch(API_URL, {
             method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data), 
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
         });
-        if (!res.ok) throw new Error("Error creating product");
-        return res.json();
+
+        return await res.json();
+    },
+
+    async updateProduct(id: string, data: any) {
+        const res = await fetch(`${API_URL}/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        });
+
+        return await res.json();
+    },
+
+    async getProductById(id: string) {
+        const res = await fetch(`${API_URL}/${id}`);
+        return await res.json();
+    },
+
+    async deleteProduct(id: string) {
+        const res = await fetch(`${API_URL}/${id}`, {
+            method: "DELETE",
+        });
+
+        return await res.json();
     }
 };
